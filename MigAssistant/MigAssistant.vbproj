@@ -15,8 +15,6 @@
     <TargetZone>LocalIntranet</TargetZone>
     <GenerateManifests>false</GenerateManifests>
     <SignManifests>false</SignManifests>
-    <ManifestCertificateThumbprint>84926CB390A82375194A87AF6B3153A6E42A9D1B</ManifestCertificateThumbprint>
-    <ManifestKeyFile>PwC Workstation Migration Assistant_TemporaryKey.pfx</ManifestKeyFile>
     <SignAssembly>false</SignAssembly>
     <AssemblyOriginatorKeyFile>
     </AssemblyOriginatorKeyFile>
