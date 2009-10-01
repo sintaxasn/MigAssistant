@@ -1,0 +1,111 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="My" GeneratedClassName="MySettings" UseMySettingsClassName="true">
+  <Profiles />
+  <Settings>
+    <Setting Name="MigrationNetworkLocation" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">\\ServerName\MigrationShare</Value>
+    </Setting>
+    <Setting Name="MigrationExclusionsDomain" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">*_Admin</Value>
+    </Setting>
+    <Setting Name="MigrationExclusionsLocal" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Administrator, ASPNET, Guest, HelpAssistant, __vmware_user__</Value>
+    </Setting>
+    <Setting Name="MigrationXPOnly" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="MigrationRuleSetXPOnly" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">MigUser.XML,MigApp.XML,MigSys.XML</Value>
+    </Setting>
+    <Setting Name="USMTLoggingValue" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">4</Value>
+    </Setting>
+    <Setting Name="MigrationConfig" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Config.XML</Value>
+    </Setting>
+    <Setting Name="MigrationConfigXPOnly" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">ConfigXPOnly.XML</Value>
+    </Setting>
+    <Setting Name="MigrationEncryptionDisabled" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="SettingsHealthCheckDefaultEnabled" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="SettingsWorkstationDetailsDisabled" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="SettingsAdvancedSettingsDisabled" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="MigrationUSBMinSize" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">2048</Value>
+    </Setting>
+    <Setting Name="MigrationScriptsPreCapture" Type="System.String" Scope="Application">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="MigrationScriptsPostCapture" Type="System.String" Scope="Application">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="MigrationScriptsPreRestore" Type="System.String" Scope="Application">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="MigrationScriptsPostRestore" Type="System.String" Scope="Application">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="MigrationScriptsNoWindow" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="MigrationOverWriteExistingFolders" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="MailSend" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="MailServer" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">smtp.mailserver.com</Value>
+    </Setting>
+    <Setting Name="MailRecipients" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">admin@mycompany.com</Value>
+    </Setting>
+    <Setting Name="MailFrom" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">migassistant@mycompany.com</Value>
+    </Setting>
+    <Setting Name="MigrationRuleSet" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">MigUser.XML,MigApp.XML,MigSys.XML</Value>
+    </Setting>
+    <Setting Name="MigrationMaxSize" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">20480</Value>
+    </Setting>
+    <Setting Name="MigrationNetworkLocationDisabled" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="MigrationCompressionDisabled" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="MigrationEncryptionDefaultKey" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">T3stEnCrypt10n</Value>
+    </Setting>
+    <Setting Name="SettingsDebugMode" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="MigrationRestoreAccountsPassword" Type="System.String" Scope="Application">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="MigrationRestoreAccountsEnabled" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="MigrationExclusionsOlderThanDays" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="MigrationDomainChange" Type="System.String" Scope="Application">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="MigrationUSBAutoUseIfAvailable" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="MigrationMultiUserMode" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

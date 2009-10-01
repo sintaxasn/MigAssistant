@@ -1,0 +1,173 @@
+Just a note about the source to start with. It was built in Visual Studio 2010 beta 1 so it’s likely a requirement in order to open.
+
+____________________________________________________________
+
+The Workstation Migration Assistant is a visual wrapper for Microsoft's User State Migration Tool, designed to simplify the capture / restore process for your end-users, and at the same time being highly configurable so that it can be customised to suit your organisations needs. Some of the features include:
+
+•	Migrate via a pre-defined network storage location, external USB drive, or user-specified location. USB drive detection is automatic, and you can decide whether drives below a certain size are ignored (ie, memory sticks)
+•	Optional Hard Disk Health Check will run a CHKDSK prior to capture and fix errors if any are found
+•	Optional Encryption using a pre-defined company encryption key, or per-user customised encryption (for highly sensitive data that can’t be stored on a server without being encrypted)
+•	Use different configurations for "XP Only" (2000 / XP to XP) migrations via Standard (2000 / XP / Vista / Win 7 to XP / Vista / Win 7)
+•	Automatically run pre and post-capture / restore scripts and programs (very useful to further configure machine settings)
+•	Migrate domain only accounts, or domain and local
+•	Automatically exclude certain domain or local accounts from the migration
+•	Automatically send log files to an e-mail address via SMTP after the migration
+•	On-screen status during every stage of the migration, including ETA
+•	Option to limit migrations to a certain size, i.e. if over 20GB of data to backup, then fail and inform user. This is also overridable
+•	Automatic checks for USMT installation and optionally download and install
+•	Command-line automation
+•	Super-pretty UI :) 
+
+______________________
+*** Pre-requisites ***
+
+Please note that the Workstation Migration Assistant requires the Microsoft .NET Framework 2.0 to function. If you don’t have it installed, you’ll receive an error when you try to run WMA
+
+Installation and configuration
+
+•	Extract the files to a local folder. It IS possible to run WMA from a network location, however this requires modifying the .NET security restrictions on each workstation you intend to run on. This can be done by running the following command from an Administrator Elevated command-prompt:
+
+"C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\caspol" -quiet -m -ag "LocalIntranet_Zone" -url "\\UNCPATH\WMA\App\*" FullTrust -n "Workstation Migration Assistant Assembly" -d "Grants full trust"
+
+Where \\UNCPATH\WMA\App is the full path to the Workstation Migration Assistant
+
+•	Copy your USMT RuleSet files (MigUser.XML, MigApp.XML, MigSys.XML). If you do not have any, WMA will automatically copy these into the WMA folder on first run. Tailor them to suit your needs.
+
+•	If required, generate a config file from your RuleSet files. This step is not required, but will speed up the initial scan time of a migration.  This is done by running:
+
+ScanState.Exe /I:MigUser.XML /I:MigApp.XML /I:MigSys.XML /GenConfig:MyConfig.XML
+
+Use the /TargetXP switch for XP Only migrations. This will speed up the migration process on these machine types.
+
+•	Edit the Workstation Migration Assistant configuration file (MigAssistant.Exe.Config). The following options are available:
+
+MigrationNetworkLocation
+Location for Network-based Migrations
+
+MigrationNetworkLocationDisabled
+Whether Network-based Migrations are disabled
+
+MigrationExclusionsDomain
+Comma-delimited list of domain accounts to exclude
+
+MigrationExclusionsLocal
+Comma-delimited list of local accounts to exclude
+
+MigrationExclusionsOlderThanDays
+Specifies that the migration should exclude users that have not logged on within the specified time. The default value of 0 means this setting will be ignored
+
+MigrationXPOnly
+Whether migrations are "XP Only". XPOnly rules then apply, including /TargetXP switch in USMT
+
+MigrationConfig
+Default configuration file, created with ScanState /GenConfig: switch
+
+MigrationConfigXPOnly
+XP Only configuration file, created with ScanState /GenConfig: switch
+
+MigrationMultiUserMode
+If set, defaults the migration type to multi-user mode
+
+MigrationRuleSet
+Comma-delimited list of default ruleset files, ie. MigUser.XML, MigApp.XML, MigSys.XML
+
+MigrationRuleSetXPOnly
+Comma-delimited list of XP Only ruleset files, ie. MigUser.XML, MigApp.XML, MigSys.XML
+
+MigrationUSBMinSize
+Minimum size an attached USB drive needs to be before WMA will try to use for migration
+
+MigrationUSBAutoUseIfAvailable
+Automatically uses an attached USB drive if found, without prompting. Useful in ZTI scenarios
+
+MigrationMaxSize
+Maximum size of data allowed during capture process
+
+MigrationOverWriteExistingFolders
+Whether an existing migration should be automatically overwritten should it be found
+
+MigrationCompressionDisabled
+Disables compression (and encryption). This is useful for testing your ruleset to ensure everything is migrated
+
+MigrationDomainChange
+Whether users should be migrated to a new domain during LoadState
+
+MigrationEncryptionDisabled
+Whether encryption is enabled or disabled
+
+MigrationEncryptionDefaultKey
+The default encryption key to use in migrations
+
+MigrationRestoreAccountsPassword
+The password that should be set for accounts when multiple accounts are being migrated
+
+MigrationRestoreAccountsEnabled
+Whether accounts should be enabled when multiple accounts are being migrated
+
+MigrationScriptsPreCapture
+Comma-delimted list of scripts/executables to run pre-Capture
+
+MigrationScriptsPostCapture
+Comma-delimted list of scripts/executables to run post-Capture
+
+MigrationScriptsPreRestore
+Comma-delimted list of scripts/executables to run pre-Restore
+
+MigrationScriptsPostRestore
+Comma-delimted list of scripts/executables to run post-Restore
+
+MigrationScriptsNoWindow
+Whether output should be shown from these scripts
+
+SettingsHealthCheckDefaultEnabled
+Whether the Health Check should be enabled by default
+
+SettingsWorkstationDetailsDisabled
+Whether the Workstation Details panel should be disabled and hidden
+
+SettingsAdvancedSettingsDisabled
+Whether the Advanced Settings button and window show be disabled and hidden
+
+MailSend
+Whether an SMTP mail should be sent after capture / restore
+
+MailServer
+SMTP Server
+
+MailRecipients
+Comma-delimited list of e-mail recipients
+
+MailFrom
+Email address from which the mail should come from
+
+USMTLoggingValue
+Verbosity level for Scanstate / Loadstate. More info in USMT Help file (USMT.CHM)
+
+SettingsDebugMode
+Whether debugging is enabled / disabled. Debugging is outputted to the file %TEMP%\WMA.Log
+
+_______________________________
+*** Command Line Parameters ***
+
+It is possible to automate the Workstation Migration Assistant via the command-line. The following parameters are available:
+
+/PROGRESSONLY <CAPTURE | RESTORE>
+Initiate an automatic capture / restore.
+
+/MIGFOLDER <foldername>
+Specifies an alternate location for the migration datastore
+
+/MIGOVERWRITEEXISTING
+Automatically overwrites the existing migration datastore if it exists
+
+/MIGMAXOVERRIDE
+Overrides the specified maximum size of the migration data during capture
+
+/MULTIUSERMODE
+If set, defaults the migration type to multi-user mode
+
+/XPONLY
+Enables “XP Only” mode if the target machine will be XP
+
+/CHANGEDOMAIN <newdomain>
+Changes the domain that users should be migrated to during LoadState

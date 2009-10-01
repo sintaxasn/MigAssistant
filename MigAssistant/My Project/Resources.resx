@@ -1,0 +1,343 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="migrationPhaseCollecting" xml:space="preserve">
+    <value>Generating data collection information...</value>
+  </data>
+  <data name="appNetworkPingCheck" xml:space="preserve">
+    <value>www.microsoft.com</value>
+  </data>
+  <data name="diskScanResultOk1" xml:space="preserve">
+    <value>No Errors Found</value>
+  </data>
+  <data name="migrationFailedMessage" xml:space="preserve">
+    <value>The migration process did not complete successfully.</value>
+  </data>
+  <data name="migrationCollectingUser" xml:space="preserve">
+    <value>Collecting data for user:</value>
+  </data>
+  <data name="migrationPostMigrationScriptFail" xml:space="preserve">
+    <value>An error was encountered while running Post-Migration Support Scripts</value>
+  </data>
+  <data name="migrationFindServerFailTitle" xml:space="preserve">
+    <value>Unable to connect to server:</value>
+  </data>
+  <data name="migrationTermsCheckFail" xml:space="preserve">
+    <value>You must agree to the terms and conditions before you can start the Migration.</value>
+  </data>
+  <data name="bddManifestFile" xml:space="preserve">
+    <value>BDDManifest.Cab</value>
+  </data>
+  <data name="mailMessage" xml:space="preserve">
+    <value>Attached are the migration details for the above user and workstation.</value>
+  </data>
+  <data name="usbDeviceConnectedEvent" xml:space="preserve">
+    <value>has been connected.</value>
+  </data>
+  <data name="datastoreMultipleFoundNoneSelected" xml:space="preserve">
+    <value>Multiple migration folders detected, but none was selected!</value>
+  </data>
+  <data name="diskScanFixCancelledMessage" xml:space="preserve">
+    <value>You have opted not to repair the errors on your Hard Disk. You may encounter problems during the data capture!</value>
+  </data>
+  <data name="datastoreDetectionError" xml:space="preserve">
+    <value>There was an error while determining the path of the existing datastore</value>
+  </data>
+  <data name="usbDeviceUseDrive" xml:space="preserve">
+    <value>Do you want to use this drive for the migration process?</value>
+  </data>
+  <data name="migrationDetectedUser" xml:space="preserve">
+    <value>Included Users:</value>
+  </data>
+  <data name="diskScanStatus3" xml:space="preserve">
+    <value>Verifying Security Descriptors...</value>
+  </data>
+  <data name="migrationCompleteError" xml:space="preserve">
+    <value>The migration failed with a fatal error:</value>
+  </data>
+  <data name="migrationMaxSizeExceededError" xml:space="preserve">
+    <value>The amount of data to be migrated exceeds the maximum allowed size. Please remove any unnecessary data and try again.</value>
+  </data>
+  <data name="exitCodeMigrationFailed" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="migrationTotalSizeInMBToTransfer" xml:space="preserve">
+    <value>MB to transfer</value>
+  </data>
+  <data name="usbDeviceSMARTFail2" xml:space="preserve">
+    <value>In order to protect against accidental data loss due to a corruption or drive failure, you cannot use this drive for a migration.</value>
+  </data>
+  <data name="usbDeviceDescription" xml:space="preserve">
+    <value>A USB Disk Drive</value>
+  </data>
+  <data name="migrationFailedStatus" xml:space="preserve">
+    <value>Migration Failed.</value>
+  </data>
+  <data name="diskScanResultOk" xml:space="preserve">
+    <value>The Hard Disk Health Check is complete and no errors have been discovered</value>
+  </data>
+  <data name="backupAdvancedSettingsProcessException" xml:space="preserve">
+    <value>An error was encountered while trying to open the Advanced Settings Dialog Box</value>
+  </data>
+  <data name="datastoreNotFound" xml:space="preserve">
+    <value>Unable to find migration datastore for the current user</value>
+  </data>
+  <data name="usbDeviceDisconnectedEvent" xml:space="preserve">
+    <value>has been disconnected.</value>
+  </data>
+  <data name="encryptionNoKeySpecified" xml:space="preserve">
+    <value>You did not specify a custom encryption key. The standard encryption key will be used.</value>
+  </data>
+  <data name="migrationFindServerFailText" xml:space="preserve">
+    <value>The specified Migration server cannot be used as there is no network connection available, or the server cannot be contacted.</value>
+  </data>
+  <data name="usbDeviceSMARTFail1" xml:space="preserve">
+    <value>However, the SMART Status of the drive shows that it is not operating within normal tolerences.</value>
+  </data>
+  <data name="diskScanSkippedMessage" xml:space="preserve">
+    <value>If you decide to bypass the Hard Disk Health Check, you may encounter problems during the migration!</value>
+  </data>
+  <data name="migrationTotalPercentageCompleted" xml:space="preserve">
+    <value>% Complete</value>
+  </data>
+  <data name="exitCodePostMigrationScriptFail" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="migrationSuccessStatus" xml:space="preserve">
+    <value>Migration Completed Successfully.</value>
+  </data>
+  <data name="migrationPreMigrationScriptFail" xml:space="preserve">
+    <value>An error was encountered while running Pre-Migration Support Scripts</value>
+  </data>
+  <data name="exitCodeOk" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="exitCodeCMDLineParamError" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="migrationPhaseEstimating" xml:space="preserve">
+    <value>Estimating migration size...</value>
+  </data>
+  <data name="diskScanFixMessage" xml:space="preserve">
+    <value>Errors have been discovered on your Hard Disk. In order to fix these errors, Windows needs to restart to enter a special error fixing mode. This may take a long time to complete. Select Yes to fix the problem, No to continue with the migration without fixing, or Cancel to exit the application</value>
+  </data>
+  <data name="diskScanProcessException" xml:space="preserve">
+    <value>An error occurred while trying to perform the Hard Disk Health Check.</value>
+  </data>
+  <data name="usmtNotFoundError" xml:space="preserve">
+    <value>This application requires the Microsoft User State Migration Tool to be installed. Click Ok to start downloading, or Cancel to exit the application</value>
+  </data>
+  <data name="usbDeviceSwitchToStandard" xml:space="preserve">
+    <value>The default migration location will be used instead.</value>
+  </data>
+  <data name="migrationNonFatalErrors" xml:space="preserve">
+    <value>Number of non-fatal errors:</value>
+  </data>
+  <data name="migrationCompleteSuccess" xml:space="preserve">
+    <value>The migration has been completed successfully.</value>
+  </data>
+  <data name="usbDeviceDescriptionAdditional" xml:space="preserve">
+    <value>An additional USB Disk Drive</value>
+  </data>
+  <data name="usmtGUIDx86" xml:space="preserve">
+    <value>{0707EA8E-A2AF-42c4-86A8-95332FDF1E3D}</value>
+  </data>
+  <data name="migrationPhaseApplying" xml:space="preserve">
+    <value>Restoring data...</value>
+  </data>
+  <data name="usbDeviceDescriptionCurrent" xml:space="preserve">
+    <value>The USB Disk Drive</value>
+  </data>
+  <data name="encryptionKeysDontMatch" xml:space="preserve">
+    <value>The specified encryption keys do not match! Please re-enter both keys.</value>
+  </data>
+  <data name="diskScanUnknownError" xml:space="preserve">
+    <value>An unknown error occurred while trying to perform the Hard Disk Health Check.</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="imageIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\imageIcon.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="diskScanPercent" xml:space="preserve">
+    <value>% Complete</value>
+  </data>
+  <data name="migrationOverwriteExistingFolder" xml:space="preserve">
+    <value>Migration data already exists at the migration location. Do you want to overwrite it?</value>
+  </data>
+  <data name="migrationPhaseSaving" xml:space="preserve">
+    <value>Capturing data...</value>
+  </data>
+  <data name="diskScanStatus1" xml:space="preserve">
+    <value>Verifying Files...</value>
+  </data>
+  <data name="migrationForUser" xml:space="preserve">
+    <value>Included components:</value>
+  </data>
+  <data name="usbDeviceConnectedStartup" xml:space="preserve">
+    <value>is connected.</value>
+  </data>
+  <data name="bddComponentFile" xml:space="preserve">
+    <value>ComponentList.XML</value>
+  </data>
+  <data name="usmtGUIDx64" xml:space="preserve">
+    <value>{863E4C66-38D1-4288-8A68-356FC8543E08}</value>
+  </data>
+  <data name="exitCodePreMigrationScriptFail" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="diskScanStatus2" xml:space="preserve">
+    <value>Verifying Indexes...</value>
+  </data>
+  <data name="migrationPhaseScanning" xml:space="preserve">
+    <value>Scanning for data to migrate...</value>
+  </data>
+  <data name="appTitle" xml:space="preserve">
+    <value>Workstation Migration Assistant</value>
+  </data>
+  <data name="migrationTotalMinutesRemaining" xml:space="preserve">
+    <value>minutes remaining</value>
+  </data>
+  <data name="exitCodeUSMTNotFoundError" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="imageTitle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\imageTitle.Png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="appCompany" xml:space="preserve">
+    <value>www.dcunningham.net</value>
+  </data>
+  <data name="appWebsite" xml:space="preserve">
+    <value>http://www.dcunningham.net</value>
+  </data>
+  <data name="migrationPhaseInitializing" xml:space="preserve">
+    <value>Initialising...</value>
+  </data>
+  <data name="diskScanResultErrors" xml:space="preserve">
+    <value>Errors Found</value>
+  </data>
+  <data name="migrationDeleteExistingError" xml:space="preserve">
+    <value>An error occurred while trying to delete the existing Migration data:</value>
+  </data>
+  <data name="bddManifestURL" xml:space="preserve">
+    <value>http://go.microsoft.com/fwlink/?LinkId=104379</value>
+  </data>
+  <data name="appBuild" xml:space="preserve">
+    <value>1.07</value>
+  </data>
+</root>
