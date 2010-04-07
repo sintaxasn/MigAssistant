@@ -8,7 +8,7 @@ Imports System.Runtime.InteropServices
 
 ' Review the values of the assembly attributes
 
-<Assembly: AssemblyTitle("Workstation Migration Assistant 1.07")> 
+<Assembly: AssemblyTitle("Workstation Migration Assistant 1.09")> 
 <Assembly: AssemblyDescription("Graphical User Interface for Microsoft's User State Migration Tool, to facilitate large-scale migrations for the Enterprise")> 
 <Assembly: AssemblyCompany("www.dcunningham.net")> 
 <Assembly: AssemblyProduct("Workstation Migration Assistant")> 
@@ -32,4 +32,4 @@ Imports System.Runtime.InteropServices
 ' <Assembly: AssemblyVersion("1.0.*")> 
 
 <Assembly: AssemblyVersion("1.0.0.0")> 
-<Assembly: AssemblyFileVersion("1.0.7.0")> 
+<Assembly: AssemblyFileVersion("1.0.9.0")> 

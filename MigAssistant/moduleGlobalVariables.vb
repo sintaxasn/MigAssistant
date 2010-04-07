@@ -47,6 +47,7 @@ Module moduleGlobalVariables
     Public bln_MigrationInProgress As Boolean = False
     Public bln_DownloadComplete As Boolean = False
     Public int_DownloadProgress As Integer = 0
+    Public str_PrimaryDataDrive As String = Nothing
 
     ' Get Application Information
     Public str_USMTFolder As String = My.Computer.FileSystem.SpecialDirectories.ProgramFiles & "\USMT301"

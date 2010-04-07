@@ -602,6 +602,14 @@ Public Class form_Migration
                         Else
                             Throw New Exception("/CHANGEDOMAIN was specified without a New Domain Name")
                         End If
+                    Case "/PRIMARYDATADRIVE"
+                        sub_DebugMessage("Match: Change Primary Data Drive Mode")
+                        If (int_Count + 1) < col_CommandLineArguments.Count Then
+                            str_PrimaryDataDrive = col_CommandLineArguments(int_Count + 1).ToUpper
+                            sub_DebugMessage("New Primary Data Drive: " & str_PrimaryDataDrive)
+                        Else
+                            Throw New Exception("/PRIMARYDATADRIVE was specified without a Primary Data Drive")
+                        End If
                     Case "/MULTIUSER"
                         sub_DebugMessage("Match: Multi-User Mode")
                         ' Enable Multi-User Mode
@@ -1702,7 +1710,8 @@ Public Class form_Migration
                     Throw New Exception("Capture was performed using XP Only Mode but OS is not XP! Unable to perform migration")
                 End If
                 Dim int_MigrationDataSize As Integer = Xml_Node.Item("SCANSTATE").Attributes.GetNamedItem("DataSize").Value
-                If int_MigrationDataSize > func_GetFreeSpace("C:") Then
+                If str_PrimaryDataDrive = Nothing Then str_PrimaryDataDrive = "C:"
+                If int_MigrationDataSize > func_GetFreeSpace(str_PrimaryDataDrive) Then
                     Throw New Exception("There is not enough free space on this drive to perform the migration")
                 End If
                 Exit For
