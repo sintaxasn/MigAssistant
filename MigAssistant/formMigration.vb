@@ -1097,7 +1097,7 @@ Public Class form_Migration
             For Each ruleset As String In array_MigrationRuleSet
                 arraylist_MigrationArguments.Add("/I:""" & Path.Combine(str_WMAFolder, ruleset.Trim) & """")
             Next
-            If My.Computer.FileSystem.FileExists(Path.Combine(str_WMAFolder, str_MigrationConfigFileXP)) Then
+            If My.Computer.FileSystem.FileExists(Path.Combine(str_WMAFolder, str_MigrationConfigFile)) Then
                 sub_DebugMessage("Config file exists and will be used: " & Path.Combine(str_WMAFolder, str_MigrationConfigFile))
                 arraylist_MigrationArguments.Add("/Config:""" & Path.Combine(str_WMAFolder, str_MigrationConfigFile) & """")
             Else
