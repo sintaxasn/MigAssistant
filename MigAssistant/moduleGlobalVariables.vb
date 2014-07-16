@@ -58,7 +58,6 @@ Module moduleGlobalVariables
 
     ' Get Settings from .Exe.Settings file
     Public str_MigrationConfigFile As String = My.Settings.MigrationConfig
-    Public str_MigrationConfigFileXP As String = My.Settings.MigrationConfigXPOnly
     Public array_MigrationExclusionsDomain() As String = Split(My.Settings.MigrationExclusionsDomain, ",")
     Public array_MigrationExclusionsLocal() As String = Split(My.Settings.MigrationExclusionsLocal, ",")
     Public bln_MigrationMultiUserMode As Boolean = My.Settings.MigrationMultiUserMode
@@ -76,8 +75,6 @@ Module moduleGlobalVariables
     Public bln_SettingsWorkstationDetailsDisabled As Boolean = My.Settings.SettingsWorkstationDetailsDisabled
     Public bln_SettingsDebugMode As Boolean = My.Settings.SettingsDebugMode
     Public array_MigrationRuleSet() As String = Split(My.Settings.MigrationRuleSet, ",")
-    Public array_MigrationRuleSetXPOnly() As String = Split(My.Settings.MigrationRuleSet, ",")
-    Public bln_MigrationXPOnly As Boolean = My.Settings.MigrationXPOnly
     Public int_MigrationMinUSBDiskSize As Integer = My.Settings.MigrationUSBMinSize
     Public bln_MigrationUSBAutoUseIfAvailable As Boolean = My.Settings.MigrationUSBAutoUseIfAvailable
     Public bln_MigrationCompressionDisabled As Boolean = My.Settings.MigrationCompressionDisabled
@@ -183,6 +180,8 @@ Module moduleGlobalVariables
         sub_DebugMessage()
         sub_DebugMessage("* Application Shutdown *")
 
+        sub_DebugMessage("Exiting Application with Exit Code: " & int_ExitCode, False, True)
+
         ' Close the logfile
         If bln_SettingsDebugMode Then
             sub_DebugMessage("Closing Logfile...")
@@ -190,7 +189,6 @@ Module moduleGlobalVariables
             obj_LogFile = Nothing
         End If
 
-        sub_DebugMessage("Exiting Application with Exit Code: " & int_ExitCode, False, True)
         System.Environment.Exit(int_ExitCode)
 
     End Sub

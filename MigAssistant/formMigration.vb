@@ -41,12 +41,6 @@ Public Class form_Migration
                 str_USMTGUID = str_USMTGUIDx64
         End Select
 
-        ' Check the OS version and set options accordingly
-        If dbl_OSVersion >= 6.0 And bln_MigrationXPOnly Then
-            bln_MigrationXPOnly = False
-            sub_DebugMessage("WARNING: XP Only Mode is specified but OS is not XP! Disabling...")
-        End If
-
         ' Get OS Information and display on the form
         label_OSVersion.Text = str_OSFullName
 
@@ -65,7 +59,7 @@ Public Class form_Migration
         ' If Health Check is enabled through settings, enable on the form controls
         If bln_SettingsHealthCheckDefaultEnabled Then
             checkbox_HealthCheck.Checked = True
-            bln_HealthCheck = False
+            bln_HealthCheck = True
         End If
 
         ' If Advanced Settings is disabled through settings, disable the form controls
@@ -266,7 +260,6 @@ Public Class form_Migration
         sub_DebugMessage()
         sub_DebugMessage("* Check for USMT *")
 
-        Dim bln_SkipOnlineCheck As Boolean
         Dim bln_IsUSMTInstalled As Boolean = True
         Dim str_bddManifestFileFullPath As String = Path.Combine(str_TempFolder, str_bddManifestFile)
         Dim str_bddComponentFileFullPath As String = Path.Combine(str_TempFolder, My.Resources.bddComponentFile)
@@ -282,6 +275,15 @@ Public Class form_Migration
         sub_DebugMessage("Checking for USMT file: " & str_USMTSearchFile & "...")
         Try
             If Not My.Computer.FileSystem.FileExists(Path.Combine(str_WMAFolder, str_USMTSearchFile)) Then
+                ' If not found, search subdirectories by architecture for any matches
+                For Each foundDirectory As String In (My.Computer.FileSystem.GetFiles(str_WMAFolder, FileIO.SearchOption.SearchAllSubDirectories, str_USMTSearchFile))
+                    ' Use the same architecture if required
+                    If (Path.GetDirectoryName(foundDirectory).ToUpper.Contains(str_OSArchitecture.ToString.ToUpper)) Then
+                        str_USMTFolder = Path.GetDirectoryName(foundDirectory)
+                        bln_IsUSMTInstalled = True
+                        Exit For
+                    End If
+                Next
                 ' If not found, search the Program Files folder for any matches
                 For Each foundDirectory As String In My.Computer.FileSystem.GetDirectories(My.Computer.FileSystem.SpecialDirectories.ProgramFiles, FileIO.SearchOption.SearchTopLevelOnly, "USMT*")
                     str_USMTFolder = foundDirectory
@@ -300,173 +302,6 @@ Public Class form_Migration
             bln_IsUSMTInstalled = False
             sub_DebugMessage("WARNING: Unable to find USMT installation: " & ex.Message & "")
         End Try
-
-        ' Present user with the option to download
-        If Not bln_IsUSMTInstalled Then
-            sub_DebugMessage("User Dialog...")
-            Dim msgbox_Result As DialogResult = MsgBox(My.Resources.usmtNotFoundError, _
-                            MsgBoxStyle.OkCancel + MsgBoxStyle.SystemModal + MsgBoxStyle.Critical, _
-                            My.Resources.appTitle)
-            Select Case msgbox_Result
-                Case Windows.Forms.DialogResult.OK
-                    Try
-                        Dim webclient As New WebClient
-                        Dim stopwatch_Download As New Stopwatch
-
-                        AddHandler webclient.DownloadProgressChanged, AddressOf sub_WebClientDownloadProgress
-                        AddHandler webclient.DownloadFileCompleted, AddressOf sub_WebClientDownloadComplete
-
-                        ' Disable some form items while we check stuff
-                        label_MigrationCurrentPhase.Text = "Checking for latest USMT version..."
-                        button_Start.Enabled = False
-                        ' Update the form
-                        Application.DoEvents()
-
-                        ' Check if the Manifest file already exists. If yes, delete it
-                        If My.Computer.FileSystem.FileExists(str_bddManifestFileFullPath) Then
-                            sub_DebugMessage(str_bddManifestFileFullPath & " already exists. Trying to delete...")
-                            Try
-                                My.Computer.FileSystem.DeleteFile(str_bddManifestFileFullPath, FileIO.UIOption.OnlyErrorDialogs, FileIO.RecycleOption.DeletePermanently)
-                                sub_DebugMessage(str_bddManifestFileFullPath & " deleted successfully.")
-                            Catch ex As Exception
-                                Throw New Exception("ERROR: " & ex.Message & ". Skipping...")
-                            End Try
-                        End If
-
-                        ' Check if the ComponentList file already exists. If yes, delete it
-                        If My.Computer.FileSystem.FileExists(str_bddComponentFileFullPath) Then
-                            sub_DebugMessage(str_bddComponentFileFullPath & " already exists. Trying to delete...")
-                            Try
-                                My.Computer.FileSystem.DeleteFile(str_bddComponentFileFullPath, FileIO.UIOption.OnlyErrorDialogs, FileIO.RecycleOption.DeletePermanently)
-                                sub_DebugMessage(str_bddComponentFileFullPath & " deleted successfully.")
-                            Catch ex As Exception
-                                Throw New Exception("ERROR: " & ex.Message & ". Skipping...")
-                            End Try
-                        End If
-
-                        ' Check for Network connectivity
-                        sub_DebugMessage("Checking for network connection...")
-                        If Not My.Computer.Network.IsAvailable Then
-                            sub_DebugMessage("No internet connection available. Skipping...")
-                            bln_SkipOnlineCheck = True
-                        Else
-                            Try
-                                My.Computer.Network.Ping(My.Resources.appNetworkPingCheck)
-                                sub_DebugMessage("Ping test to " & My.Resources.appNetworkPingCheck & " successful")
-                            Catch ex As Exception
-                                Throw New Exception("ERROR: Unable to ping " & My.Resources.appNetworkPingCheck & ". Skipping...")
-                            End Try
-                        End If
-
-                        ' Download the new manifest file from the Microsoft site
-                        sub_DebugMessage("Downloading Microsoft Deployment manifest file from " & str_bddManifestURL & "...")
-                        Try
-                            Dim uri_bddManifestDownloadURL As New Uri(str_bddManifestURL)
-
-                            stopwatch_Download.Start()
-                            bln_DownloadComplete = False
-                            int_DownloadProgress = 0
-
-                            webclient.DownloadFileAsync(uri_bddManifestDownloadURL, str_bddManifestFileFullPath)
-
-                            Do Until bln_DownloadComplete
-                                System.Threading.Thread.Sleep(1000)
-                                Application.DoEvents()
-                            Loop
-
-                            stopwatch_Download.Stop()
-                            sub_DebugMessage("Download successful (" & str_bddManifestFileFullPath & "). Took " & stopwatch_Download.Elapsed.Seconds & " second(s)")
-                        Catch ex As Exception
-                            Throw New Exception("ERROR: Download failed. " & ex.Message)
-                        End Try
-
-                        ' Extract the ComponentList from the manifest file
-                        sub_DebugMessage("Extracting ComponentList file...")
-                        Try
-                            sub_ExpandCabinet(str_bddManifestFileFullPath, My.Resources.bddComponentFile, str_TempFolder)
-                            sub_DebugMessage("Extraction successful (" & str_bddComponentFileFullPath & ")")
-                        Catch ex As Exception
-                            Throw New Exception("ERROR: Extraction failed: " & ex.Message)
-                        End Try
-
-                        ' Read XML file and check for relevant x86 / x64 USMT version
-                        sub_DebugMessage("Checking USMT version against ComponentList...")
-                        Try
-                            Dim xml_Document As XmlDocument = New XmlDocument
-                            xml_Document.Load(str_bddComponentFileFullPath)
-                            Dim xml_Nodes As XmlNodeList = xml_Document.GetElementsByTagName("Component")
-                            xml_Document = Nothing
-                            For Each Xml_Node As XmlNode In xml_Nodes
-                                ' Get GUID of each Component
-                                xml_GUID = Xml_Node.Attributes.GetNamedItem("guid").Value
-                                ' If there's a match to the current architecture, get the other details
-                                If xml_GUID = str_USMTGUID Then
-                                    xml_Architecture = Xml_Node.Attributes.GetNamedItem("Architecture").Value
-                                    xml_InstallCondition = Xml_Node.Item("InstalledCondition").Attributes.GetNamedItem("RegistryKey").Value
-                                    xml_DownloadURL = Xml_Node.Item("File").Attributes.GetNamedItem("URL").Value
-                                    xml_DownloadFile = Xml_Node.Item("File").Attributes.GetNamedItem("FileName").Value
-                                    xml_Description = Xml_Node.Item("ShortDescription").InnerText
-                                    sub_DebugMessage("Match found: " & xml_Description & ": " & xml_GUID)
-                                    Exit For
-                                End If
-                            Next
-                            If xml_Description = Nothing Then
-                                Throw New Exception("Unable to find USMT download information in the ComponentList")
-                            End If
-                        Catch ex As Exception
-                            Throw New Exception("ERROR: Unable to parse the ComponentList correctly: " & ex.Message)
-                        End Try
-
-                        label_MigrationCurrentPhase.Text = "Downloading USMT Installation..."
-                        Application.DoEvents()
-
-                        sub_DebugMessage("Starting Download...")
-
-                        Dim uri_USMTDownloadURL As New Uri(xml_DownloadURL)
-
-                        stopwatch_Download.Start()
-                        bln_DownloadComplete = False
-                        int_DownloadProgress = 0
-
-                        webclient.DownloadFileAsync(uri_USMTDownloadURL, Path.Combine(str_WMAFolder, xml_DownloadFile))
-
-                        Do Until bln_DownloadComplete
-                            System.Threading.Thread.Sleep(1000)
-                            Application.DoEvents()
-                        Loop
-
-                        stopwatch_Download.Stop()
-                        sub_DebugMessage("Download successful (" & Path.Combine(str_WMAFolder, xml_DownloadFile) & "). Took " & stopwatch_Download.Elapsed.Seconds & " second(s)")
-
-                        label_MigrationCurrentPhase.Text = "Installing..."
-                        Application.DoEvents()
-
-                        sub_DebugMessage("Installing...")
-                        Dim process As New Process
-                        Dim processInfo As New ProcessStartInfo()
-                        processInfo.FileName = Path.Combine(System.Environment.SystemDirectory, "MSIExec.Exe")
-                        processInfo.Arguments = "/I """ & Path.Combine(str_WMAFolder, xml_DownloadFile) & """ /QB! Reboot=ReallySuppress"
-                        processInfo.WorkingDirectory = str_WMAFolder
-                        processInfo.UseShellExecute = False
-
-                        ' Start the Installation
-                        Try
-                            process.StartInfo = processInfo
-                            process.Start()
-                            process.WaitForExit()
-                        Catch ex As Exception
-                            Throw New Exception(ex.Message)
-                        End Try
-                        sub_DebugMessage("Starting Installation...")
-
-                    Catch ex As Exception
-                        sub_DebugMessage("ERROR: Download / Installation failed: " & ex.Message, True)
-                        appShutdown(24)
-                    End Try
-                Case Windows.Forms.DialogResult.Cancel
-                    appShutdown(23)
-            End Select
-        End If
 
         label_MigrationCurrentPhase.Text = "..."
         button_Start.Enabled = True
@@ -496,37 +331,19 @@ Public Class form_Migration
         Dim bln_RuleSetMissing As Boolean = False
         Dim bln_RuleSetCopyFailed As Boolean = False
 
-        ' *** Get Target OS and setup the rules for migration
-        If bln_MigrationXPOnly Then
-            ' Read the relevant configuration file
-            sub_DebugMessage("Checking for XP Specific RuleSet files...")
-            For Each ruleset As String In array_MigrationRuleSetXPOnly
-                If Not My.Computer.FileSystem.FileExists(Path.Combine(str_WMAFolder, ruleset.Trim)) Then
-                    sub_DebugMessage("WARNING: RuleSet file " & ruleset.Trim & " does not exist. Copying default file from USMT folder...")
-                    Try
-                        My.Computer.FileSystem.CopyFile(Path.Combine(str_USMTFolder, ruleset.Trim), Path.Combine(str_WMAFolder, ruleset.Trim), True)
-                    Catch ex As Exception
-                        sub_DebugMessage("ERROR: Unable to copy file - " & Path.Combine(str_USMTFolder, ruleset.Trim))
-                        bln_RuleSetCopyFailed = True
-                    End Try
-                    bln_RuleSetMissing = True
-                End If
-            Next
-
-        Else
-            For Each ruleset As String In array_MigrationRuleSet
-                If Not My.Computer.FileSystem.FileExists(Path.Combine(str_WMAFolder, ruleset.Trim)) Then
-                    sub_DebugMessage("WARNING: RuleSet file " & ruleset.Trim & " does not exist. Copying default file from USMT folder...")
-                    Try
-                        My.Computer.FileSystem.CopyFile(Path.Combine(str_USMTFolder, ruleset.Trim), Path.Combine(str_WMAFolder, ruleset.Trim), True)
-                    Catch ex As Exception
-                        sub_DebugMessage("ERROR: Unable to copy file - " & Path.Combine(str_USMTFolder, ruleset.Trim))
-                        bln_RuleSetCopyFailed = True
-                    End Try
-                    bln_RuleSetMissing = True
-                End If
-            Next
-        End If
+        ' *** Set up the rules for migration
+        For Each ruleset As String In array_MigrationRuleSet
+            If Not My.Computer.FileSystem.FileExists(Path.Combine(str_WMAFolder, ruleset.Trim)) Then
+                sub_DebugMessage("WARNING: RuleSet file " & ruleset.Trim & " does not exist. Copying default file from USMT folder...")
+                Try
+                    My.Computer.FileSystem.CopyFile(Path.Combine(str_USMTFolder, ruleset.Trim), Path.Combine(str_WMAFolder, ruleset.Trim), True)
+                Catch ex As Exception
+                    sub_DebugMessage("ERROR: Unable to copy file - " & Path.Combine(str_USMTFolder, ruleset.Trim))
+                    bln_RuleSetCopyFailed = True
+                End Try
+                bln_RuleSetMissing = True
+            End If
+        Next
 
         If bln_RuleSetMissing Then
             If bln_RuleSetCopyFailed Then
@@ -586,14 +403,6 @@ Public Class form_Migration
                         Else
                             Throw New Exception("/MIGFOLDER was specified without a Migration Folder")
                         End If
-                    Case "/XPONLY"
-                        sub_DebugMessage("Match: XP Only Mode")
-                        ' Do not enable XPOnly mode if the current OS is Vista / Win 7
-                        If dbl_OSVersion < 6.0 Then
-                            bln_MigrationXPOnly = True
-                        Else
-                            sub_DebugMessage("WARNING: XP Only Mode is specified but OS is not XP! Disabling...")
-                        End If
                     Case "/CHANGEDOMAIN"
                         sub_DebugMessage("Match: Change Domain Mode")
                         If (int_Count + 1) < col_CommandLineArguments.Count Then
@@ -621,57 +430,6 @@ Public Class form_Migration
             appShutdown(My.Resources.exitCodeCMDLineParamError)
         End Try
 
-    End Sub
-
-    Private Sub sub_ExpandCabinet(ByVal str_CABFileName As String, ByVal str_ExtractFileName As String, ByVal str_DestinationPath As String)
-
-        sub_DebugMessage("Expanding Cabinet...")
-
-        Dim process = New Process
-        Dim processInfo As New ProcessStartInfo
-
-        ' Setup and Start the Expand process
-        Try
-
-            processInfo.CreateNoWindow = True
-            processInfo.UseShellExecute = False
-            processInfo.FileName = Path.Combine(Path.Combine(Environment.GetEnvironmentVariable("windir"), "system32"), "expand.exe")
-            processInfo.Arguments = """" & str_CABFileName & """ -F:" & str_ExtractFileName & " """ & str_DestinationPath & """"
-
-            sub_DebugMessage("Process: " & processInfo.FileName & " " & processInfo.Arguments)
-
-            process.StartInfo = processInfo
-            process.Start()
-
-            ' Wait until the process exits and check the error code
-            process.WaitForExit()
-
-            ' Get the exit code
-            If Not process.ExitCode = 0 Then
-                Throw New Exception("Process returned error code: " & process.ExitCode)
-            End If
-
-        Catch ex As Exception
-            Throw
-        End Try
-
-    End Sub
-
-    Private Shared Sub sub_WebClientDownloadProgress(ByVal sender As Object, ByVal e As DownloadProgressChangedEventArgs)
-        ' Update progress as necessary
-        If e.ProgressPercentage > int_DownloadProgress Then
-            ' Update counter
-            int_DownloadProgress = e.ProgressPercentage
-            ' Write to log file
-            sub_DebugMessage("Downloading file: " & CStr(CInt(e.BytesReceived / 1024)) + " of " + CStr(CInt(e.TotalBytesToReceive / 1024)) + " KB, " + CStr(e.ProgressPercentage) & "% Complete...")
-            ' Update Display
-            form_Migration.label_MigrationCurrentPhase.Text = "Downloading file: " & CStr(CInt(e.BytesReceived / 1024)) + " of " + CStr(CInt(e.TotalBytesToReceive / 1024)) + " KB, " + CStr(e.ProgressPercentage) & "% Complete..."
-            form_Migration.label_MigrationCurrentPhase.Refresh()
-        End If
-    End Sub
-
-    Private Shared Sub sub_WebClientDownloadComplete(ByVal sender As Object, ByVal e As System.ComponentModel.AsyncCompletedEventArgs)
-        bln_DownloadComplete = True
     End Sub
 
 #End Region
@@ -893,9 +651,9 @@ Public Class form_Migration
             class_HealthCheck.Spinup()
 
         Catch ex As Exception
-            class_HealthCheck.SpinDown()
             sub_DebugMessage("ERROR: " & ex.Message, True)
             label_MigrationCurrentPhase.Text = ex.Message
+            class_HealthCheck.SpinDown()
             Exit Sub
         End Try
 
@@ -1080,30 +838,15 @@ Public Class form_Migration
         ' Reset all migration settings in the array
         arraylist_MigrationArguments.Clear()
 
-        ' *** Get Target OS and setup the rules for migration
-        If bln_MigrationXPOnly Then
-            ' Read the relevant configuration file
-            For Each ruleset As String In array_MigrationRuleSetXPOnly
-                arraylist_MigrationArguments.Add("/I:""" & Path.Combine(str_WMAFolder, ruleset.Trim) & """")
-            Next
-            If My.Computer.FileSystem.FileExists(Path.Combine(str_WMAFolder, str_MigrationConfigFileXP)) Then
-                sub_DebugMessage("Config file exists and will be used: " & Path.Combine(str_WMAFolder, str_MigrationConfigFileXP))
-                arraylist_MigrationArguments.Add("/Config:""" & Path.Combine(str_WMAFolder, str_MigrationConfigFileXP) & """")
-            Else
-                sub_DebugMessage("Config file does not exist. Standard migration will be performed")
-            End If
-
+        ' *** Set up the rules for migration
+        For Each ruleset As String In array_MigrationRuleSet
+            arraylist_MigrationArguments.Add("/I:""" & Path.Combine(str_WMAFolder, ruleset.Trim) & """")
+        Next
+        If My.Computer.FileSystem.FileExists(Path.Combine(str_WMAFolder, str_MigrationConfigFile)) Then
+            sub_DebugMessage("Config file exists and will be used: " & Path.Combine(str_WMAFolder, str_MigrationConfigFile))
+            arraylist_MigrationArguments.Add("/Config:""" & Path.Combine(str_WMAFolder, str_MigrationConfigFile) & """")
         Else
-            For Each ruleset As String In array_MigrationRuleSet
-                arraylist_MigrationArguments.Add("/I:""" & Path.Combine(str_WMAFolder, ruleset.Trim) & """")
-            Next
-            If My.Computer.FileSystem.FileExists(Path.Combine(str_WMAFolder, str_MigrationConfigFile)) Then
-                sub_DebugMessage("Config file exists and will be used: " & Path.Combine(str_WMAFolder, str_MigrationConfigFile))
-                arraylist_MigrationArguments.Add("/Config:""" & Path.Combine(str_WMAFolder, str_MigrationConfigFile) & """")
-            Else
-                sub_DebugMessage("Config file does not exist. Standard migration will be performed")
-            End If
-
+            sub_DebugMessage("Config file does not exist. Standard migration will be performed")
         End If
 
         sub_DebugMessage("Migration Type: " & str_MigrationType)
@@ -1162,17 +905,40 @@ Public Class form_Migration
 
                 str_MigrationFolder = Path.Combine(str_MigrationFolder, str_EnvComputerName & "_" & str_EnvUserName)
 
-                If bln_MigrationXPOnly Then
-                    ' Read the relevant configuration file
-                    arraylist_MigrationArguments.Add("/TargetXP")
-                End If
-
                 ' Create the folder structure
                 sub_MigrationCreateFolderStructure(Path.Combine(str_MigrationFolder, str_MigrationDataStoreFolder))
                 sub_MigrationCreateFolderStructure(Path.Combine(str_MigrationFolder, str_MigrationLoggingFolder))
 
                 ' Add the standard arguments to Argument List
                 arraylist_MigrationArguments.Add("/LocalOnly")
+
+                ' *** If not migrating all accounts...
+                If Not bln_MigrationSettingsAllUsers Then
+                    ' Include current user (either domain or local) and exclude all others
+                    arraylist_MigrationArguments.Add("/UI:""" & My.User.CurrentPrincipal.Identity.Name & """")
+                    arraylist_MigrationArguments.Add("/UE:*\*")
+                    ' *** Otherwise...
+                Else
+                    ' Exclude accounts older than the specified number of days
+                    If int_MigrationExclusionsOlderThanDays > 0 Then
+                        arraylist_MigrationArguments.Add("/UEL:" & int_MigrationExclusionsOlderThanDays & "")
+                    End If
+                    ' Exclude domain accounts specified in settings file
+                    For Each exclusion As String In array_MigrationExclusionsDomain
+                        arraylist_MigrationArguments.Add("/UE:""" & str_EnvDomain & "\" & exclusion.Trim & """")
+                    Next
+                    ' If not migrating local accounts...
+                    If Not bln_MigrationSettingsLocalAccounts Then
+                        ' Exclude local accounts
+                        arraylist_MigrationArguments.Add("/UE:" & str_EnvComputerName & "\*")
+                        ' *** Otherwise...
+                    Else
+                        ' Exclude local accounts specified in settings file
+                        For Each exclusion As String In array_MigrationExclusionsLocal
+                            arraylist_MigrationArguments.Add("/UE:""" & str_EnvComputerName & "\" & exclusion.Trim & """")
+                        Next
+                    End If
+                End If
 
             Case "LOADSTATE"
 
@@ -1196,7 +962,7 @@ Public Class form_Migration
 
                 ' If a Domain Change is specified
                 If Not str_MigrationDomainChange = "" Then
-                    arraylist_MigrationArguments.Add("/MD:" & str_EnvDomain & ":" & str_MigrationDomainChange)
+                    arraylist_MigrationArguments.Add("/MD:" & str_MigrationDomainChange & ":" & str_EnvDomain)
                 End If
 
         End Select
@@ -1207,34 +973,6 @@ Public Class form_Migration
         ' ***  Test Mode (No Compression)
         If bln_MigrationCompressionDisabled Then
             arraylist_MigrationArguments.Add("/NoCompress")
-        End If
-
-        ' *** If not migrating all accounts...
-        If Not bln_MigrationSettingsAllUsers Then
-            ' Include current user (either domain or local) and exclude all others
-            arraylist_MigrationArguments.Add("/UI:""" & My.User.CurrentPrincipal.Identity.Name & """")
-            arraylist_MigrationArguments.Add("/UE:*\*")
-            ' *** Otherwise...
-        Else
-            ' Exclude accounts older than the specified number of days
-            If int_MigrationExclusionsOlderThanDays > 0 Then
-                arraylist_MigrationArguments.Add("/UEL:" & int_MigrationExclusionsOlderThanDays & "")
-            End If
-            ' Exclude domain accounts specified in settings file
-            For Each exclusion As String In array_MigrationExclusionsDomain
-                arraylist_MigrationArguments.Add("/UE:""" & str_EnvDomain & "\" & exclusion.Trim & """")
-            Next
-            ' If not migrating local accounts...
-            If Not bln_MigrationSettingsLocalAccounts Then
-                ' Exclude local accounts
-                arraylist_MigrationArguments.Add("/UE:" & str_EnvComputerName & "\*")
-                ' *** Otherwise...
-            Else
-                ' Exclude local accounts specified in settings file
-                For Each exclusion As String In array_MigrationExclusionsLocal
-                    arraylist_MigrationArguments.Add("/UE:""" & str_EnvComputerName & "\" & exclusion.Trim & """")
-                Next
-            End If
         End If
 
         ' *** Get Encryption Settings
@@ -1302,9 +1040,9 @@ Public Class form_Migration
             class_Migration.Spinup()
 
         Catch ex As Exception
-            class_Migration.SpinDown()
             sub_DebugMessage(ex.Message, True)
             label_MigrationCurrentPhase.Text = ex.Message
+            class_Migration.SpinDown()
             Exit Sub
         End Try
 
@@ -1378,7 +1116,6 @@ Public Class form_Migration
                         If bln_HealthCheck Then
                             xml_LogFile.WriteAttributeString("HealthCheckStatusOk", bln_HealthCheckStatusOk)
                         End If
-                        xml_LogFile.WriteAttributeString("XPOnly", bln_MigrationXPOnly)
                         xml_LogFile.WriteAttributeString("AllUsers", bln_MigrationSettingsAllUsers)
                         xml_LogFile.WriteAttributeString("CompressionDisabled", bln_MigrationCompressionDisabled)
                 End Select
@@ -1536,8 +1273,10 @@ Public Class form_Migration
                     If str_MigrationType = "SCANSTATE" Then
                         If Not bln_SizeChecksDone Then
                             ' If not overridden via commandline, check the migration size is not exceeded
-                            If (Not bln_migrationMaxOverride Or int_MigrationMaxSize = 0) And class_Migration.EstDataSize > int_MigrationMaxSize Then
-                                Throw New Exception("ERROR: The amount of data to be migrated exceeds the maximum allowed size. Please remove any unnecessary data and try again." & vbNewLine & vbNewLine & "Current: " & class_Migration.EstDataSize & "MB" & vbNewLine & "Maximum: " & int_MigrationMaxSize & "MB")
+                            If (int_MigrationMaxSize > 0 And Not bln_migrationMaxOverride) Then
+                                If class_Migration.EstDataSize > int_MigrationMaxSize Then
+                                    Throw New Exception("ERROR: The amount of data to be migrated exceeds the maximum allowed size. Please remove any unnecessary data and try again." & vbNewLine & vbNewLine & "Current: " & class_Migration.EstDataSize & "MB" & vbNewLine & "Maximum: " & int_MigrationMaxSize & "MB")
+                                End If
                             End If
                             If class_Migration.EstDataSize > func_GetFreeSpace(str_MigrationFolder) Then
                                 Throw New Exception("ERROR: There is not enough space available to perform the migration. Estimated Migration Size: " & class_Migration.EstDataSize & "MB. Available Space: " & func_GetFreeSpace(str_MigrationFolder) & "MB")
@@ -1562,12 +1301,12 @@ Public Class form_Migration
 
                 str_PreviousStatusMessage = str_StatusMessage
 
-            End If
+                End If
 
         Catch ex As Exception
-            class_Migration.SpinDown()
             sub_DebugMessage(ex.Message, True)
             label_MigrationCurrentPhase.Text = ex.Message
+            class_Migration.SpinDown()
             Exit Sub
         End Try
 
@@ -1705,10 +1444,6 @@ Public Class form_Migration
                         formCustomEncryption.ShowDialog()
                     End If
                 End If
-                bln_MigrationXPOnly = Xml_Node.Item("Options").Attributes.GetNamedItem("XPOnly").Value
-                If bln_MigrationXPOnly And dbl_OSVersion >= 6.0 Then
-                    Throw New Exception("Capture was performed using XP Only Mode but OS is not XP! Unable to perform migration")
-                End If
                 Dim int_MigrationDataSize As Integer = Xml_Node.Item("SCANSTATE").Attributes.GetNamedItem("DataSize").Value
                 If str_PrimaryDataDrive = Nothing Then str_PrimaryDataDrive = "C:"
                 If int_MigrationDataSize > func_GetFreeSpace(str_PrimaryDataDrive) Then
@@ -1783,6 +1518,10 @@ Public Class form_Migration
                     processInfo.FileName = "CScript.Exe"
                     processInfo.Arguments = """" & script & """ " & str_MigrationScriptArguments
                     processInfo.CreateNoWindow = bln_MigrationScriptsNoWindow
+                Case "PS1"
+                    processInfo.FileName = "PowerShell.Exe"
+                    processInfo.Arguments = "-ExecutionPolicy Bypass -File """ & script & """ " & str_MigrationScriptArguments
+                    processInfo.CreateNoWindow = bln_MigrationScriptsNoWindow
                 Case Else
                     processInfo.FileName = script
                     processInfo.Arguments = str_MigrationScriptArguments
@@ -1811,6 +1550,8 @@ Public Class form_Migration
                     Return False
             End Select
         Next
+
+        Return False
 
     End Function
 

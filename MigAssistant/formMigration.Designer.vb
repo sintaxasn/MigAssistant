@@ -19,32 +19,30 @@ Partial Class form_Migration
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(form_Migration))
-        Me.label_OSVersion = New System.Windows.Forms.Label
-        Me.button_Start = New System.Windows.Forms.Button
+        Me.label_OSVersion = New System.Windows.Forms.Label()
+        Me.button_Start = New System.Windows.Forms.Button()
         Me.tooltips_MigrationForm = New System.Windows.Forms.ToolTip(Me.components)
-        Me.button_AdvancedSettings = New System.Windows.Forms.Button
-        Me.image_Header = New System.Windows.Forms.PictureBox
-        Me.tabpage_Restore = New System.Windows.Forms.TabPage
-        Me.slabel_DatastoreLocation = New System.Windows.Forms.Label
-        Me.label_DatastoreLocation = New System.Windows.Forms.Label
-        Me.tabpage_Capture = New System.Windows.Forms.TabPage
-        Me.radiobox_WorkstationDetails1 = New System.Windows.Forms.RadioButton
-        Me.radiobox_WorkstationDetails2 = New System.Windows.Forms.RadioButton
-        Me.slabel_HealthCheck = New System.Windows.Forms.Label
-        Me.checkbox_HealthCheck = New System.Windows.Forms.CheckBox
-        Me.slabel_WorkstationDetails = New System.Windows.Forms.Label
-        Me.tabcontrol_MigrationType = New System.Windows.Forms.TabControl
-        Me.group_Status = New System.Windows.Forms.GroupBox
-        Me.slabel_MigrationCurrentStatus = New System.Windows.Forms.Label
-        Me.label_MigrationEstSize = New System.Windows.Forms.Label
-        Me.slabel_MigrationEstTimeRemaining = New System.Windows.Forms.Label
-        Me.slabel_MigrationEstSize = New System.Windows.Forms.Label
-        Me.label_MigrationCurrentPhase = New System.Windows.Forms.Label
-        Me.label_MigrationEstTimeRemaining = New System.Windows.Forms.Label
-        Me.progressbar_Migration = New System.Windows.Forms.ProgressBar
-        CType(Me.image_Header, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.button_AdvancedSettings = New System.Windows.Forms.Button()
+        Me.tabpage_Restore = New System.Windows.Forms.TabPage()
+        Me.slabel_DatastoreLocation = New System.Windows.Forms.Label()
+        Me.label_DatastoreLocation = New System.Windows.Forms.Label()
+        Me.tabpage_Capture = New System.Windows.Forms.TabPage()
+        Me.radiobox_WorkstationDetails1 = New System.Windows.Forms.RadioButton()
+        Me.radiobox_WorkstationDetails2 = New System.Windows.Forms.RadioButton()
+        Me.slabel_HealthCheck = New System.Windows.Forms.Label()
+        Me.checkbox_HealthCheck = New System.Windows.Forms.CheckBox()
+        Me.slabel_WorkstationDetails = New System.Windows.Forms.Label()
+        Me.tabcontrol_MigrationType = New System.Windows.Forms.TabControl()
+        Me.group_Status = New System.Windows.Forms.GroupBox()
+        Me.slabel_MigrationCurrentStatus = New System.Windows.Forms.Label()
+        Me.label_MigrationEstSize = New System.Windows.Forms.Label()
+        Me.slabel_MigrationEstTimeRemaining = New System.Windows.Forms.Label()
+        Me.slabel_MigrationEstSize = New System.Windows.Forms.Label()
+        Me.label_MigrationCurrentPhase = New System.Windows.Forms.Label()
+        Me.label_MigrationEstTimeRemaining = New System.Windows.Forms.Label()
+        Me.progressbar_Migration = New System.Windows.Forms.ProgressBar()
         Me.tabpage_Restore.SuspendLayout()
         Me.tabpage_Capture.SuspendLayout()
         Me.tabcontrol_MigrationType.SuspendLayout()
@@ -55,7 +53,7 @@ Partial Class form_Migration
         '
         Me.label_OSVersion.Font = New System.Drawing.Font("Segoe UI", 7.25!)
         Me.label_OSVersion.ForeColor = System.Drawing.SystemColors.ActiveCaption
-        Me.label_OSVersion.Location = New System.Drawing.Point(21, 320)
+        Me.label_OSVersion.Location = New System.Drawing.Point(21, 295)
         Me.label_OSVersion.Name = "label_OSVersion"
         Me.label_OSVersion.Size = New System.Drawing.Size(308, 12)
         Me.label_OSVersion.TabIndex = 16
@@ -65,7 +63,7 @@ Partial Class form_Migration
         'button_Start
         '
         Me.button_Start.Font = New System.Drawing.Font("Segoe UI", 8.25!)
-        Me.button_Start.Location = New System.Drawing.Point(466, 312)
+        Me.button_Start.Location = New System.Drawing.Point(466, 287)
         Me.button_Start.Name = "button_Start"
         Me.button_Start.Size = New System.Drawing.Size(116, 27)
         Me.button_Start.TabIndex = 0
@@ -85,7 +83,7 @@ Partial Class form_Migration
         'button_AdvancedSettings
         '
         Me.button_AdvancedSettings.Font = New System.Drawing.Font("Segoe UI", 8.25!)
-        Me.button_AdvancedSettings.Location = New System.Drawing.Point(344, 312)
+        Me.button_AdvancedSettings.Location = New System.Drawing.Point(344, 287)
         Me.button_AdvancedSettings.Name = "button_AdvancedSettings"
         Me.button_AdvancedSettings.Size = New System.Drawing.Size(116, 27)
         Me.button_AdvancedSettings.TabIndex = 33
@@ -95,23 +93,13 @@ Partial Class form_Migration
         Me.button_AdvancedSettings.UseVisualStyleBackColor = True
         Me.button_AdvancedSettings.Visible = False
         '
-        'image_Header
-        '
-        Me.image_Header.Dock = System.Windows.Forms.DockStyle.Top
-        Me.image_Header.Image = Global.MigAssistant.My.Resources.Resources.imageTitle
-        Me.image_Header.Location = New System.Drawing.Point(0, 0)
-        Me.image_Header.Name = "image_Header"
-        Me.image_Header.Size = New System.Drawing.Size(591, 31)
-        Me.image_Header.TabIndex = 0
-        Me.image_Header.TabStop = False
-        '
         'tabpage_Restore
         '
         Me.tabpage_Restore.Controls.Add(Me.slabel_DatastoreLocation)
         Me.tabpage_Restore.Controls.Add(Me.label_DatastoreLocation)
         Me.tabpage_Restore.Location = New System.Drawing.Point(4, 24)
         Me.tabpage_Restore.Name = "tabpage_Restore"
-        Me.tabpage_Restore.Size = New System.Drawing.Size(566, 163)
+        Me.tabpage_Restore.Size = New System.Drawing.Size(566, 133)
         Me.tabpage_Restore.TabIndex = 5
         Me.tabpage_Restore.Text = "Data Restore"
         Me.tabpage_Restore.UseVisualStyleBackColor = True
@@ -215,7 +203,7 @@ Partial Class form_Migration
         Me.tabcontrol_MigrationType.Controls.Add(Me.tabpage_Capture)
         Me.tabcontrol_MigrationType.Controls.Add(Me.tabpage_Restore)
         Me.tabcontrol_MigrationType.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.tabcontrol_MigrationType.Location = New System.Drawing.Point(12, 37)
+        Me.tabcontrol_MigrationType.Location = New System.Drawing.Point(12, 12)
         Me.tabcontrol_MigrationType.Multiline = True
         Me.tabcontrol_MigrationType.Name = "tabcontrol_MigrationType"
         Me.tabcontrol_MigrationType.Padding = New System.Drawing.Point(10, 3)
@@ -235,7 +223,7 @@ Partial Class form_Migration
         Me.group_Status.Enabled = False
         Me.group_Status.Font = New System.Drawing.Font("Segoe UI", 10.0!)
         Me.group_Status.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.group_Status.Location = New System.Drawing.Point(12, 204)
+        Me.group_Status.Location = New System.Drawing.Point(12, 179)
         Me.group_Status.Name = "group_Status"
         Me.group_Status.Size = New System.Drawing.Size(570, 102)
         Me.group_Status.TabIndex = 57
@@ -309,9 +297,9 @@ Partial Class form_Migration
         '
         'progressbar_Migration
         '
-        Me.progressbar_Migration.Location = New System.Drawing.Point(12, 314)
+        Me.progressbar_Migration.Location = New System.Drawing.Point(12, 287)
         Me.progressbar_Migration.Name = "progressbar_Migration"
-        Me.progressbar_Migration.Size = New System.Drawing.Size(326, 22)
+        Me.progressbar_Migration.Size = New System.Drawing.Size(326, 27)
         Me.progressbar_Migration.Step = 1
         Me.progressbar_Migration.TabIndex = 52
         Me.progressbar_Migration.Visible = False
@@ -320,12 +308,11 @@ Partial Class form_Migration
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(591, 347)
+        Me.ClientSize = New System.Drawing.Size(591, 322)
         Me.Controls.Add(Me.progressbar_Migration)
         Me.Controls.Add(Me.tabcontrol_MigrationType)
         Me.Controls.Add(Me.group_Status)
         Me.Controls.Add(Me.button_AdvancedSettings)
-        Me.Controls.Add(Me.image_Header)
         Me.Controls.Add(Me.button_Start)
         Me.Controls.Add(Me.label_OSVersion)
         Me.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -336,7 +323,6 @@ Partial Class form_Migration
         Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Workstation Migration Assistant"
-        CType(Me.image_Header, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabpage_Restore.ResumeLayout(False)
         Me.tabpage_Restore.PerformLayout()
         Me.tabpage_Capture.ResumeLayout(False)
@@ -347,7 +333,6 @@ Partial Class form_Migration
         Me.ResumeLayout(False)
 
     End Sub
-    Friend WithEvents image_Header As System.Windows.Forms.PictureBox
     Friend WithEvents tooltips_MigrationForm As System.Windows.Forms.ToolTip
     Friend WithEvents button_Start As System.Windows.Forms.Button
     Friend WithEvents label_OSVersion As System.Windows.Forms.Label

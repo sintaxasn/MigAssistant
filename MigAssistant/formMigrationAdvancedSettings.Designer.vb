@@ -19,33 +19,28 @@ Partial Class formMigrationAdvancedSettings
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(formMigrationAdvancedSettings))
-        Me.pnlAdvancedSettingsQuestion1 = New System.Windows.Forms.Panel
-        Me.rbnAdvancedSettingsQuestion1A = New System.Windows.Forms.RadioButton
-        Me.rbnAdvancedSettingsQuestion1B = New System.Windows.Forms.RadioButton
-        Me.lblAdvancedSettingsQuestion1 = New System.Windows.Forms.Label
-        Me.btnAdvancedSettingsClose = New System.Windows.Forms.Button
-        Me.pnlAdvancedSettingsQuestion4 = New System.Windows.Forms.Panel
-        Me.rbnAdvancedSettingsQuestion4A = New System.Windows.Forms.RadioButton
-        Me.rbnAdvancedSettingsQuestion4B = New System.Windows.Forms.RadioButton
-        Me.lblAdvancedSettingsQuestion4 = New System.Windows.Forms.Label
+        Me.pnlAdvancedSettingsQuestion1 = New System.Windows.Forms.Panel()
+        Me.rbnAdvancedSettingsQuestion1A = New System.Windows.Forms.RadioButton()
+        Me.rbnAdvancedSettingsQuestion1B = New System.Windows.Forms.RadioButton()
+        Me.lblAdvancedSettingsQuestion1 = New System.Windows.Forms.Label()
+        Me.btnAdvancedSettingsClose = New System.Windows.Forms.Button()
+        Me.pnlAdvancedSettingsQuestion4 = New System.Windows.Forms.Panel()
+        Me.rbnAdvancedSettingsQuestion4A = New System.Windows.Forms.RadioButton()
+        Me.rbnAdvancedSettingsQuestion4B = New System.Windows.Forms.RadioButton()
+        Me.lblAdvancedSettingsQuestion4 = New System.Windows.Forms.Label()
         Me.formAdvancedSettingsToolTips = New System.Windows.Forms.ToolTip(Me.components)
-        Me.lblAdvancedSettingsQuestion2 = New System.Windows.Forms.Label
-        Me.lblAdvancedSettingsQuestion3 = New System.Windows.Forms.Label
-        Me.fbdAdvancedSettingsDataStore = New System.Windows.Forms.FolderBrowserDialog
+        Me.lblAdvancedSettingsQuestion2 = New System.Windows.Forms.Label()
+        Me.fbdAdvancedSettingsDataStore = New System.Windows.Forms.FolderBrowserDialog()
         Me.StateImageList = New System.Windows.Forms.ImageList(Me.components)
         Me.IconsImageList = New System.Windows.Forms.ImageList(Me.components)
-        Me.rbnAdvancedSettingsQuestion2A = New System.Windows.Forms.RadioButton
-        Me.rbnAdvancedSettingsQuestion2B = New System.Windows.Forms.RadioButton
-        Me.pnlAdvancedSettingsQuestion2 = New System.Windows.Forms.Panel
-        Me.pnlAdvancedSettingsQuestion3 = New System.Windows.Forms.Panel
-        Me.rbnAdvancedSettingsQuestion3A = New System.Windows.Forms.RadioButton
-        Me.rbnAdvancedSettingsQuestion3B = New System.Windows.Forms.RadioButton
+        Me.rbnAdvancedSettingsQuestion2A = New System.Windows.Forms.RadioButton()
+        Me.rbnAdvancedSettingsQuestion2B = New System.Windows.Forms.RadioButton()
+        Me.pnlAdvancedSettingsQuestion2 = New System.Windows.Forms.Panel()
         Me.pnlAdvancedSettingsQuestion1.SuspendLayout()
         Me.pnlAdvancedSettingsQuestion4.SuspendLayout()
         Me.pnlAdvancedSettingsQuestion2.SuspendLayout()
-        Me.pnlAdvancedSettingsQuestion3.SuspendLayout()
         Me.SuspendLayout()
         '
         'pnlAdvancedSettingsQuestion1
@@ -91,7 +86,7 @@ Partial Class formMigrationAdvancedSettings
         '
         'btnAdvancedSettingsClose
         '
-        Me.btnAdvancedSettingsClose.Location = New System.Drawing.Point(293, 140)
+        Me.btnAdvancedSettingsClose.Location = New System.Drawing.Point(293, 108)
         Me.btnAdvancedSettingsClose.Name = "btnAdvancedSettingsClose"
         Me.btnAdvancedSettingsClose.Size = New System.Drawing.Size(116, 29)
         Me.btnAdvancedSettingsClose.TabIndex = 1
@@ -102,7 +97,7 @@ Partial Class formMigrationAdvancedSettings
         '
         Me.pnlAdvancedSettingsQuestion4.Controls.Add(Me.rbnAdvancedSettingsQuestion4A)
         Me.pnlAdvancedSettingsQuestion4.Controls.Add(Me.rbnAdvancedSettingsQuestion4B)
-        Me.pnlAdvancedSettingsQuestion4.Location = New System.Drawing.Point(126, 108)
+        Me.pnlAdvancedSettingsQuestion4.Location = New System.Drawing.Point(126, 76)
         Me.pnlAdvancedSettingsQuestion4.Name = "pnlAdvancedSettingsQuestion4"
         Me.pnlAdvancedSettingsQuestion4.Size = New System.Drawing.Size(283, 26)
         Me.pnlAdvancedSettingsQuestion4.TabIndex = 44
@@ -132,13 +127,13 @@ Partial Class formMigrationAdvancedSettings
         'lblAdvancedSettingsQuestion4
         '
         Me.lblAdvancedSettingsQuestion4.AutoSize = True
-        Me.lblAdvancedSettingsQuestion4.Location = New System.Drawing.Point(11, 114)
+        Me.lblAdvancedSettingsQuestion4.Location = New System.Drawing.Point(12, 82)
         Me.lblAdvancedSettingsQuestion4.Name = "lblAdvancedSettingsQuestion4"
         Me.lblAdvancedSettingsQuestion4.Size = New System.Drawing.Size(93, 13)
         Me.lblAdvancedSettingsQuestion4.TabIndex = 43
         Me.lblAdvancedSettingsQuestion4.Text = "Account Backup:"
         Me.formAdvancedSettingsToolTips.SetToolTip(Me.lblAdvancedSettingsQuestion4, "Specifies whether domain accounts are migrated, or if local accounts should also " & _
-                "be migrated.")
+        "be migrated.")
         '
         'formAdvancedSettingsToolTips
         '
@@ -158,17 +153,6 @@ Partial Class formMigrationAdvancedSettings
         Me.lblAdvancedSettingsQuestion2.TabIndex = 48
         Me.lblAdvancedSettingsQuestion2.Text = "Data Encryption:"
         Me.formAdvancedSettingsToolTips.SetToolTip(Me.lblAdvancedSettingsQuestion2, "Specifiies the location of where migration data should be kept")
-        '
-        'lblAdvancedSettingsQuestion3
-        '
-        Me.lblAdvancedSettingsQuestion3.AutoSize = True
-        Me.lblAdvancedSettingsQuestion3.Location = New System.Drawing.Point(11, 82)
-        Me.lblAdvancedSettingsQuestion3.Name = "lblAdvancedSettingsQuestion3"
-        Me.lblAdvancedSettingsQuestion3.Size = New System.Drawing.Size(60, 13)
-        Me.lblAdvancedSettingsQuestion3.TabIndex = 49
-        Me.lblAdvancedSettingsQuestion3.Text = "Target OS:"
-        Me.formAdvancedSettingsToolTips.SetToolTip(Me.lblAdvancedSettingsQuestion3, "Specifies whether domain accounts are migrated, or if local accounts should also " & _
-                "be migrated.")
         '
         'fbdAdvancedSettingsDataStore
         '
@@ -225,45 +209,12 @@ Partial Class formMigrationAdvancedSettings
         Me.pnlAdvancedSettingsQuestion2.Size = New System.Drawing.Size(283, 26)
         Me.pnlAdvancedSettingsQuestion2.TabIndex = 47
         '
-        'pnlAdvancedSettingsQuestion3
-        '
-        Me.pnlAdvancedSettingsQuestion3.Controls.Add(Me.rbnAdvancedSettingsQuestion3A)
-        Me.pnlAdvancedSettingsQuestion3.Controls.Add(Me.rbnAdvancedSettingsQuestion3B)
-        Me.pnlAdvancedSettingsQuestion3.Location = New System.Drawing.Point(126, 76)
-        Me.pnlAdvancedSettingsQuestion3.Name = "pnlAdvancedSettingsQuestion3"
-        Me.pnlAdvancedSettingsQuestion3.Size = New System.Drawing.Size(283, 26)
-        Me.pnlAdvancedSettingsQuestion3.TabIndex = 50
-        '
-        'rbnAdvancedSettingsQuestion3A
-        '
-        Me.rbnAdvancedSettingsQuestion3A.AutoSize = True
-        Me.rbnAdvancedSettingsQuestion3A.Checked = True
-        Me.rbnAdvancedSettingsQuestion3A.Location = New System.Drawing.Point(13, 4)
-        Me.rbnAdvancedSettingsQuestion3A.Name = "rbnAdvancedSettingsQuestion3A"
-        Me.rbnAdvancedSettingsQuestion3A.Size = New System.Drawing.Size(112, 17)
-        Me.rbnAdvancedSettingsQuestion3A.TabIndex = 0
-        Me.rbnAdvancedSettingsQuestion3A.TabStop = True
-        Me.rbnAdvancedSettingsQuestion3A.Text = "XP / Vista / Win 7"
-        Me.rbnAdvancedSettingsQuestion3A.UseVisualStyleBackColor = True
-        '
-        'rbnAdvancedSettingsQuestion3B
-        '
-        Me.rbnAdvancedSettingsQuestion3B.AutoSize = True
-        Me.rbnAdvancedSettingsQuestion3B.Location = New System.Drawing.Point(162, 2)
-        Me.rbnAdvancedSettingsQuestion3B.Name = "rbnAdvancedSettingsQuestion3B"
-        Me.rbnAdvancedSettingsQuestion3B.Size = New System.Drawing.Size(64, 17)
-        Me.rbnAdvancedSettingsQuestion3B.TabIndex = 1
-        Me.rbnAdvancedSettingsQuestion3B.Text = "XP Only"
-        Me.rbnAdvancedSettingsQuestion3B.UseVisualStyleBackColor = True
-        '
         'formMigrationAdvancedSettings
         '
         Me.AcceptButton = Me.btnAdvancedSettingsClose
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(423, 175)
-        Me.Controls.Add(Me.pnlAdvancedSettingsQuestion3)
-        Me.Controls.Add(Me.lblAdvancedSettingsQuestion3)
+        Me.ClientSize = New System.Drawing.Size(423, 146)
         Me.Controls.Add(Me.lblAdvancedSettingsQuestion2)
         Me.Controls.Add(Me.pnlAdvancedSettingsQuestion2)
         Me.Controls.Add(Me.pnlAdvancedSettingsQuestion4)
@@ -288,8 +239,6 @@ Partial Class formMigrationAdvancedSettings
         Me.pnlAdvancedSettingsQuestion4.PerformLayout()
         Me.pnlAdvancedSettingsQuestion2.ResumeLayout(False)
         Me.pnlAdvancedSettingsQuestion2.PerformLayout()
-        Me.pnlAdvancedSettingsQuestion3.ResumeLayout(False)
-        Me.pnlAdvancedSettingsQuestion3.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -311,8 +260,4 @@ Partial Class formMigrationAdvancedSettings
     Friend WithEvents rbnAdvancedSettingsQuestion2B As System.Windows.Forms.RadioButton
     Friend WithEvents pnlAdvancedSettingsQuestion2 As System.Windows.Forms.Panel
     Friend WithEvents lblAdvancedSettingsQuestion2 As System.Windows.Forms.Label
-    Friend WithEvents pnlAdvancedSettingsQuestion3 As System.Windows.Forms.Panel
-    Friend WithEvents rbnAdvancedSettingsQuestion3A As System.Windows.Forms.RadioButton
-    Friend WithEvents rbnAdvancedSettingsQuestion3B As System.Windows.Forms.RadioButton
-    Friend WithEvents lblAdvancedSettingsQuestion3 As System.Windows.Forms.Label
 End Class

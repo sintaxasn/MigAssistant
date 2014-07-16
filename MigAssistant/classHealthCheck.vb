@@ -120,7 +120,7 @@ Public Class classHealthCheck
                 _process.Kill()
             End If
             _process.Close()
-            _thread = Nothing
+            ' _thread = Nothing
 
         Catch ex As Exception
 

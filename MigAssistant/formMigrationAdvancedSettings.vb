@@ -15,12 +15,6 @@ Public Class formMigrationAdvancedSettings
             bln_MigrationSettingsLocalAccounts = False
         End If
 
-        If rbnAdvancedSettingsQuestion3B.Checked Then
-            bln_MigrationXPOnly = True
-        Else
-            bln_MigrationXPOnly = False
-        End If
-
         ' Stop the form from actually closing, and hide instead
         e.Cancel = True
         Me.Hide()
@@ -39,18 +33,8 @@ Public Class formMigrationAdvancedSettings
         rbnAdvancedSettingsQuestion4A.Visible = False
         rbnAdvancedSettingsQuestion4B.Visible = False
 
-        lblAdvancedSettingsQuestion3.Visible = False
-        rbnAdvancedSettingsQuestion3A.Visible = False
-        rbnAdvancedSettingsQuestion3B.Visible = False
-
         ' If performing a backup...
         If str_MigrationType = "SCANSTATE" Then
-            lblAdvancedSettingsQuestion3.Visible = True
-            rbnAdvancedSettingsQuestion3A.Visible = True
-            rbnAdvancedSettingsQuestion3B.Visible = True
-            If bln_MigrationXPOnly Then
-                rbnAdvancedSettingsQuestion3B.Checked = True
-            End If
             ' and migrating more than the current user, all local account migration too
             If bln_MigrationSettingsAllUsers Then
                 lblAdvancedSettingsQuestion4.Visible = True

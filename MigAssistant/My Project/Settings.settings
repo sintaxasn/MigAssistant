@@ -11,20 +11,11 @@
     <Setting Name="MigrationExclusionsLocal" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Administrator, ASPNET, Guest, HelpAssistant, __vmware_user__</Value>
     </Setting>
-    <Setting Name="MigrationXPOnly" Type="System.Boolean" Scope="Application">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="MigrationRuleSetXPOnly" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">MigUser.XML,MigApp.XML</Value>
-    </Setting>
     <Setting Name="USMTLoggingValue" Type="System.Int32" Scope="Application">
       <Value Profile="(Default)">4</Value>
     </Setting>
     <Setting Name="MigrationConfig" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Config.XML</Value>
-    </Setting>
-    <Setting Name="MigrationConfigXPOnly" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">ConfigXPOnly.XML</Value>
     </Setting>
     <Setting Name="MigrationEncryptionDisabled" Type="System.Boolean" Scope="Application">
       <Value Profile="(Default)">False</Value>
